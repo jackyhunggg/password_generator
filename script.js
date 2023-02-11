@@ -1,21 +1,19 @@
+// define sample function to randomly return an item in an array
+function sample(array) {
+    const index = Math.floor(Math.random() * array.length)
+    return array[index]
+}
+
 // define the password generator function
-function generatePassword() {
+function generatePassword(options) {
 // define things user might want
 const lower = 'abcdefghijklmnopqrstuvwxyz'
 const upper = lower.toUpperCase()
 const num = '1234567890'
 const symbol = '`~!@$%^&*()-_+={}[]|;:"<>,.?/'
+
 // create a collection to store things user picked up
 let collection = []
-// dummy data of req.body
-const options = {
-  length: 12,
-  lowercase: 'on',
-  uppercase: 'on',
-  numbers: 'on',
-  symbols: 'on',
-  excludeCharacters: '123456'
-}
 
 if(options.lowercase === 'on') {
     collection = collection.concat(lower.split(''))
@@ -34,28 +32,22 @@ if(options.symbols === 'on') {
 }
 // remove things user do not need
 if(options.excludeCharacters) {
-// if the character includes in 'excludeCharacters',
-// return false to remove the character in the collection
     collection = collection.filter(character => {
       return !options.excludeCharacters.includes(character)
       })      
 }
 
 // start generating password
-function sample(array) {
-    const index = Math.floor(Math.random() * array.length)
-    return array[index]
-}
-
 // make a empty string for password
-
 let password = ''
 
 for(let i = 0; i < Number(options.length); i ++) {
     password += sample(collection)
 }
+
 // return the generated password
-console.log('password', password)
+return password
 }
 
-generatePassword()
+// export generatePassword function for other files to use
+module.exports = generatePassword
