@@ -37,6 +37,11 @@ if(options.excludeCharacters) {
       })      
 }
 
+// return error notice if collection is empty
+if (collection.length === 0) {
+    return 'There is no valid character in your selection.'
+  }
+
 // start generating password
 // make a empty string for password
 let password = ''
